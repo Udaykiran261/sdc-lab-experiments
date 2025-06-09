@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Development Portfolio - 16 Experiments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+            padding-right: 3rem;
+        }
+
+        .project-tech {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            color: #667eea;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            padding: 2rem 0;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .deploy-guide {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            color: white;
+        }
+
+        .deploy-guide h2 {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .deploy-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .step-number {
+            background: #667eea;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                gap: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 My Development Portfolio</h1>
+            <p>A collection of 16 diverse web development experiments</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">16</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Technologies</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Live Now</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Project 01 - CSS Shopping Cart -->
+            <div class="project-card">
+                <div class="project-number">01</div>
+                <h3 class="project-title">Shopping Cart App</h3>
+                <span class="project-tech">CSS</span>
+                <p class="project-description">A responsive shopping cart interface built with pure CSS, featuring modern design patterns and smooth animations.</p>
+                <div class="project-links">
+                    <a href="./shopping-cart-css/" class="btn btn-primary">Live Demo</a>
+                    <a href="#" class="btn btn-secondary">View Code</a>
+                </div>
+            </div>
+
+            <!-- Project 02 - Bootstrap Shopping Cart -->
+            <div class="project-card">
+                <div class="project-number">02</div>
+                <h3 class="project-title">Shopping Cart with Bootstrap</h3>
+                <span class="project-tech">Bootstrap</span>
+                <p class="project-description">Enhanced shopping cart using Bootstrap framework for responsive design and improved user experience.</p>
+                <div class="project-links">
+                    <a href="./shopping-cart-bootstrap/" class="btn btn-primary">Live Demo</a>
+                    <a href="#" class="btn btn-secondary">View Code</a>
+                </div>
+            </div>
+
+            <!-- Project 04 - Vue.js Weather App -->
+            <div class="project-card">
+                <div class="project-number">04</div>
+                <h3 class="project-title">Weather Information System</h3>
+                <span class="project-tech">Vue.js</span>
+                <p class="project-description">Dynamic weather app built with Vue.js, featuring API integration and interactive visualizations.</p>
+                <div class="project-links">
+                    <a href="./weather-vue/" class="btn btn-primary">Live Demo</a>
+                    <a href="#" class="btn btn-secondary">View Code</a>
+                </div>
+            </div>
+
+            <!-- Project 12 - React Weather App -->
+            <div class="project-card">
+                <div class="project-number">12</div>
+                <h3 class="project-title">React Weather App</h3>
+                <span class="project-tech">React.js</span>
+                <p class="project-description">Interactive weather application with React hooks, API integration, and responsive design.</p>
+                <div class="project-links">
+                    <a href="./weather-react/" class="btn btn-primary">Live Demo</a>
+                    <a href="#" class="btn btn-secondary">View Code</a>
+                </div>
+            </div>
+
+            <!-- Project 13 - React Todo App -->
+            <div class="project-card">
+                <div class="project-number">13</div>
+                <h3 class="project-title">React Todo App</h3>
+                <span class="project-tech">React.js</span>
+                <p class="project-description">Feature-rich todo application demonstrating state management and modern React patterns.</p>
+                <div class="project-links">
+                    <a href="./todo-react/" class="btn btn-primary">Live Demo</a>
+                    <a href="#" class="btn btn-secondary">View Code</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="deploy-guide">
+            <h2>🚀 Deployment Instructions</h2>
+            <p>To deploy all 5 projects on Vercel:</p>
+            
+            <div class="deploy-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Create vercel.json</h3>
+                    <p>Add this file to your repository root:</p>
+                    <pre>{
+  "routes": [
+    {
+      "src": "/shopping-cart-css/(.*)",
+      "dest": "/Experiment-01_Shopping-cart-app_CSS/Shopping-cart-app/public/html/$1"
+    },
+    {
+      "src": "/shopping-cart-bootstrap/(.*)",
+      "dest": "/Experiment-02_Shopping-cart-app_Bootstrap/ShoppingCartApp/public/html/$1"
+    },
+    {
+      "src": "/weather-vue/(.*)",
+      "dest": "/Experiment-04_Weather_information_Visualization_ES6/Weather-info-app/public/html/$1"
+    },
+    {
+      "src": "/weather-react/(.*)",
+      "dest": "/Experiment-12_ReactJS_Weather-app/weather-app/weather-app/public/$1"
+    },
+    {
+      "src": "/todo-react/(.*)",
+      "dest": "/Experiment-13_ReactJS_Todo-app/todo-app/public/$1"
+    }
+  ]
+}</pre>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Create package.json</h3>
+                    <p>Add this file to your repository root:</p>
+                    <pre>{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo 'Static projects require no build'"
+  }
+}</pre>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Deploy to Vercel</h3>
+                    <p>Push to GitHub and import to Vercel:</p>
+                    <ol>
+                        <li>Create account at <a href="https://vercel.com" target="_blank" style="color: #fff;">vercel.com</a></li>
+                        <li>Click "Add New Project"</li>
+                        <li>Import your GitHub repository</li>
+                        <li>Set framework to "Other"</li>
+                        <li>Click "Deploy"</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🎯 Built with passion for learning and experimentation</p>
+            <p>Each project represents a step in my development journey</p>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.project-card');
+            
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+        });
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .project-card {
+                opacity: 0;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
