@@ -1,0 +1,24 @@
+{
+  "routes": [
+    {
+      "src": "/shopping-cart-css/(.*)",
+      "dest": "/Experiment-01_Shopping-cart-app_CSS/Shopping-cart-app/public/html/$1"
+    },
+    {
+      "src": "/shopping-cart-bootstrap/(.*)",
+      "dest": "/Experiment-02_Shopping-cart-app_Bootstrap/ShoppingCartApp/public/html/$1"
+    },
+    {
+      "src": "/weather-vue/(.*)",
+      "dest": "/Experiment-04_Weather_information_Visualization_ES6/Weather-info-app/public/html/$1"
+    },
+    {
+      "src": "/weather-react/(.*)",
+      "dest": "/Experiment-12_ReactJS_Weather-app/weather-app/weather-app/public/$1"
+    },
+    {
+      "src": "/todo-react/(.*)",
+      "dest": "/Experiment-13_ReactJS_Todo-app/todo-app/public/$1"
+    }
+  ]
+}
